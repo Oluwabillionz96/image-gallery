@@ -2,6 +2,7 @@ const left = document.querySelector('.left');
 const right = document.querySelector('.right');
 const main = document.querySelector('.container');
 const image = document.querySelector('.the-one');
+const showers = document.querySelectorAll('.showw');
 
 const sources = [
   "https://i.pinimg.com/736x/12/d9/58/12d9585bdb5183a88abf042397ccd073.jpg",
@@ -12,8 +13,29 @@ const sources = [
   "https://i.pinimg.com/736x/2c/71/f7/2c71f7fc1a57010f17beb9d1841060e1.jpg",
   "https://i.pinimg.com/736x/80/c1/00/80c1009e693609f617bb29bed0707ed5.jpg",
 ];
-let num = Math.floor(Math.random()*sources.length);
-image.setAttribute("src", sources[num]);
+let num = Math.floor(Math.random() * sources.length);
+num = 0
+function updateImage() {
+    if (num === 6) {
+      num = -1;
+      image.setAttribute("src", sources[num + 1]);
+    } else {
+      image.setAttribute("src", sources[num + 1]);
+    }
+}
+
+updateImage()
+function updateShows() {
+ showers.forEach((showw, i) => {
+   let updater = (num + i) % sources.length;
+   showw.setAttribute("src", sources[updater]);
+   console.log(updater);
+ }); 
+}
+
+updateShows();
+
+
 
 right.addEventListener('click', plus)
 
@@ -34,15 +56,28 @@ function plus() {
       // num++;
     } else {
       num++;
-    }
-    image.setAttribute("src", sources[num]);
+  }
+  
+  updateShows()
+  updateImage()
+
+    
 }
 function minus() {
      if (num === sources.length - sources.length) {
        num = sources.length - 1;
      } else {
        num--;
-     }
-     image.setAttribute("src", sources[num]);  
+  }
+  updateShows()
+  // image.setAttribute("src", sources[num + 1]);
+  //  if (num === 0) {
+  //    num = 6;
+  //    image.setAttribute("src", sources[num + 1]);
+  //  } else {
+  //    image.setAttribute("src", sources[num + 1]);
+  //  }
+  image.setAttribute('src', sources[num + 1])
+   
 }
 
